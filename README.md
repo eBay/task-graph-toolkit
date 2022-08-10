@@ -1,4 +1,4 @@
-# Workflow 
+# Task-Graph-Toolkit 
 
 This library is an extension of basic Java concurrency patterns along with some other Plain Old Java interfaces that helps organize business logic implementations into a set of interdependent tasks.
 
