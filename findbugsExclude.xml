@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<FindBugsFilter>
+
+    <!-- This is to ignore the immutable field error -->
+    <Match>
+        <Bug code="EI,EI2" />
+    </Match>
+
+    <!-- ConfigWeb project will be removed from Raptor and hence removing it from analysis -->
+    <Match>
+        <Class name="~.*Test$"/>
+    </Match>
+    <Match>
+        <Package name="~test\..*"/>
+    </Match>
+
+    <Match>
+        <Package name="~.*\.automation\..*"/>
+    </Match>
+    <!-- These classes are of the same name used in different deployment env. We don't want warnings on these -->
+    <Match>
+        <Package name="~org.ebayopensource.ginger.client.config.*" />
+        <Bug pattern="NM_SAME_SIMPLE_NAME_AS_SUPERCLASS" />
+    </Match>
+    <!-- Class overrides clone() properly so no need to implement Cloneable -->
+    <Match>
+        <Class name="com.ebay.app.raptor.rpp.ces.application.cache.ViewModelCacheKeyBuilder" />
+        <Bug pattern="CN_IMPLEMENTS_CLONE_BUT_NOT_CLONEABLE" />
+    </Match>
+
+    <!-- appReqContext is passed as a parameter and then later used by the caller -->
+    <Match>
+        <Class name="com.ebay.app.raptor.rpp.ces.application.deals.normalizer.UserAgentNormalizer" />
+        <Bug pattern="DLS_DEAD_LOCAL_STORE" />
+    </Match>
+
+    <!-- clone() does not call super.clone() in com.ebay.app.raptor.rpp.ces.cache.key.ViewModelCacheKeyBuilder -->
+    <Match>
+        <Class name="~.*" />
+        <Bug pattern="CN_IDIOM_NO_SUPER_CALL" />
+    </Match>
+</FindBugsFilter>
