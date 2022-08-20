@@ -9,9 +9,9 @@
 	<packaging>pom</packaging>
 	<name>Task Graph Toolkit</name>
 	<scm>
-		<connection>scm:git:git://git@github.corp.ebay.com:storefront/workflow.git</connection>
-		<developerConnection>scm:git:git@github.corp.ebay.com:storefront/workflow.git</developerConnection>
-		<url>scm:git:git://git@github.corp.ebay.com/storefront/workflow.git</url>
+        <connection>https://github.com/eBay/task-graph-toolkit.git</connection>
+        <developerConnection>https://github.com/eBay/task-graph-toolkit.git</developerConnection>
+        <url>https://github.com/eBay/task-graph-toolkit</url>
 		<tag>main</tag>
 	</scm>
 	<properties>
