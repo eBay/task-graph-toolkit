@@ -19,7 +19,6 @@
 package com.ebay.ap.workflow.service;
 
 import java.util.List;
-
 import javax.ws.rs.core.HttpHeaders;
 
 import com.ebay.ap.util.JsonHelper;
