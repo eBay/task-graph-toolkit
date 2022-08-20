@@ -92,14 +92,8 @@ class CallableTaskFuture<RESULT> implements ICallableTaskFuture<RESULT> {
             }
 
             // check if a result has been pre configured for the task
-            if (result != null) {
-                // type safe cast as we're passing in the specific class to be deserialized to
-                @SuppressWarnings("unchecked")
-                RESULT diagResult = (RESULT) this.task.getTaskConfig().diagnosticConfig.getTaskData(this.task.getName(), result.getClass());
-                if (diagResult != null) {
-                    result = diagResult;
-                }
-            }
+            // type safe cast as we're passing in the specific class to be deserialized to
+            result = this.task.getTaskConfig().diagnosticConfig.getTaskData(this.task.getName(), result);
 
             // only create a result if task completes normally or an exception was handled
             // previously this was done in a finally block but this prevented

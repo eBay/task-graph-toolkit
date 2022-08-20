@@ -19,7 +19,10 @@
 package com.ebay.ap.executor;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.Assert;
@@ -54,8 +57,23 @@ public class ExecutorTest {
     }
     
     @Test
-    public void testTaskMocks() {
-        ExecutorTest.testTaskMocks(new JavaCallableTaskExecutor());
+    public void testTaskMockHeaderValue() {
+        ExecutorTest.testTaskMockHeaderValue(new JavaCallableTaskExecutor());
+    }
+    
+    @Test
+    public void testTaskMockHeaderNull() {
+        ExecutorTest.testTaskMockHeaderNull(new JavaCallableTaskExecutor());
+    }
+    
+    @Test
+    public void testTaskMockValue() {
+        ExecutorTest.testTaskMockHeaderValue(new JavaCallableTaskExecutor());
+    }
+    
+    @Test
+    public void testTaskMockNull() {
+        ExecutorTest.testTaskMockHeaderNull(new JavaCallableTaskExecutor());
     }
 
     @Test
@@ -133,8 +151,8 @@ public class ExecutorTest {
         }
     }
 
-    // test mocking out task response
-    public static void testTaskMocks(ICallableTaskExecutor executor) {
+    // test mocking out task response value via header
+    public static void testTaskMockHeaderValue(ICallableTaskExecutor executor) {
 
         Headers headers = new Headers();
         headers.add("taskmocks", Arrays.asList("[{\"name\":\"NumberTask1\",\"value\":4}]"));
@@ -142,6 +160,40 @@ public class ExecutorTest {
         DiagnosticConfig diagConfig = new DiagnosticConfig(headers);
         CallableTaskConfig taskConfig = new CallableTaskConfig(diagConfig, TIMEOUT);
         TaskTest task = new TaskTest("testTaskMocks", executor, taskConfig, 9L);
+        task.call();
+    }
+
+    // test mocking out task response null value via header
+    public static void testTaskMockHeaderNull(ICallableTaskExecutor executor) {
+
+        Headers headers = new Headers();
+        headers.add("taskmocks", Arrays.asList("[{\"name\":\"NumberTask1\",\"value\":\"null\"}]"));
+        
+        DiagnosticConfig diagConfig = new DiagnosticConfig(headers);
+        CallableTaskConfig taskConfig = new CallableTaskConfig(diagConfig, TIMEOUT);
+        TaskTest task = new TaskTest("testTaskMocks", executor, taskConfig, 5L);
+        task.call();
+    }
+
+    // test mocking out task response value via DiagnosticConfig
+    public static void testTaskMockValue(ICallableTaskExecutor executor) {
+
+        Map<String, Object> mocks = new HashMap<>();
+        mocks.put("NumberTask1", Long.valueOf(4L));
+        DiagnosticConfig diagConfig = new DiagnosticConfig(false, false, false, Collections.emptySet(), mocks);
+        CallableTaskConfig taskConfig = new CallableTaskConfig(diagConfig, TIMEOUT);
+        TaskTest task = new TaskTest("testTaskMocks", executor, taskConfig, 9L);
+        task.call();
+    }
+
+    // test mocking out task response null value via DiagnosticConfig
+    public static void testTaskMockNull(ICallableTaskExecutor executor) {
+
+        Map<String, Object> mocks = new HashMap<>();
+        mocks.put("NumberTask1", "null");
+        DiagnosticConfig diagConfig = new DiagnosticConfig(false, false, false, Collections.emptySet(), mocks);
+        CallableTaskConfig taskConfig = new CallableTaskConfig(diagConfig, TIMEOUT);
+        TaskTest task = new TaskTest("testTaskMocks", executor, taskConfig, 5L);
         task.call();
     }
     
@@ -329,7 +381,7 @@ public class ExecutorTest {
         long result = task.call();
         time = System.currentTimeMillis() - time;
         Assert.assertEquals(-9L, result);
-        Assert.assertTrue(time <  150L);  // should take a little over 100ms only
+        Assert.assertTrue(Long.toString(time), time <  150L);  // should take a little over 100ms only
         
     }
     
