@@ -26,7 +26,12 @@
     </module>
 
     <module name="SuppressionFilter">
-            <property name="file" value="${checkstyle.suppressions.location}" default="suppressions.xml"/>
+        <property name="file" value="${checkstyle.suppressions.location}" default="suppressions.xml"/>
+    </module>
+
+    <module name="LineLength">
+        <property name="max" value="150"/>
+        <property name="ignorePattern" value="^package.*|^import.*|a href|href|http://|https://|ftp://"/>
     </module>
 
     <module name="TreeWalker">
@@ -40,10 +45,6 @@
             <property name="allowEscapesForControlCharacters" value="true"/>
             <property name="allowByTailComment" value="true"/>
             <property name="allowNonPrintableEscapes" value="true"/>
-        </module>
-        <module name="LineLength">
-            <property name="max" value="150"/>
-            <property name="ignorePattern" value="^package.*|^import.*|a href|href|http://|https://|ftp://"/>
         </module>
         <module name="AvoidStarImport"/>
         <module name="OneTopLevelClass"/>

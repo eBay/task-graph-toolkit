@@ -20,7 +20,6 @@ package com.ebay.ap.diagnostic;
 
 import java.util.Collections;
 import java.util.List;
-
 import javax.ws.rs.core.HttpHeaders;
 
 import com.ebay.ap.workflow.service.IServiceInvoker;

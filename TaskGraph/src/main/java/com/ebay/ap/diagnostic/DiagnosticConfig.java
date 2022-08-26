@@ -25,7 +25,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-
 import javax.ws.rs.core.HttpHeaders;
 
 import org.slf4j.Logger;
@@ -85,7 +84,7 @@ public class DiagnosticConfig {
         incrementCount();
     }
 
-    private DiagnosticConfig(boolean showDiagnostics,
+    public DiagnosticConfig(boolean showDiagnostics,
             boolean serviceDiagnostics,
             boolean profile,
             Set<String> taskDiagnostics,
@@ -179,11 +178,24 @@ public class DiagnosticConfig {
         return this.taskDiagnostics.contains(name);
     }
 
-    public <T> T getTaskData(String name, Class<T> clazz) {
+    @SuppressWarnings("unchecked")
+    public <T> T getTaskData(String name, T originalTaskResult) {
         Object data = this.taskMocks.get(name);
-        T taskData = null;
+        T taskData = originalTaskResult;
         if (data != null) {
-            taskData = JsonHelper.convertValue(data, clazz);
+            if (data instanceof String && "null".equals(data.toString())) {
+                taskData = null;
+            } else if (null == originalTaskResult) {
+                // if the current task result is null, assume the mock is of the correct type
+                // only works if the mock is initialized with the proper type in a unit test
+                taskData = (T) data;
+            } else if (originalTaskResult.getClass().equals(data.getClass())) {
+                // if the current task result type matches the mock value, again only works for unit tests
+                taskData = (T) data;
+            } else {
+                // otherwise try and convert the generically deserialized type to the expected task type
+                taskData = (T) JsonHelper.convertValue(data, originalTaskResult.getClass());
+            }
         }
         return taskData;
     }

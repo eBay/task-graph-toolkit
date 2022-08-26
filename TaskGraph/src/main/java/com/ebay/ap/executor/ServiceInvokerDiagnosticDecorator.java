@@ -19,7 +19,6 @@
 package com.ebay.ap.executor;
 
 import java.util.List;
-
 import javax.ws.rs.core.HttpHeaders;
 
 import com.ebay.ap.diagnostic.IProfilerEntry;

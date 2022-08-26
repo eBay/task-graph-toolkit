@@ -9,9 +9,9 @@
 	<packaging>pom</packaging>
 	<name>Task Graph Toolkit</name>
 	<scm>
-		<connection>scm:git:git://git@github.corp.ebay.com:storefront/workflow.git</connection>
-		<developerConnection>scm:git:git@github.corp.ebay.com:storefront/workflow.git</developerConnection>
-		<url>scm:git:git://git@github.corp.ebay.com/storefront/workflow.git</url>
+        <connection>https://github.com/eBay/task-graph-toolkit.git</connection>
+        <developerConnection>https://github.com/eBay/task-graph-toolkit.git</developerConnection>
+        <url>https://github.com/eBay/task-graph-toolkit</url>
 		<tag>main</tag>
 	</scm>
 	<properties>
@@ -20,7 +20,7 @@
 		<install.plugin.version>2.5.2</install.plugin.version>
 		<pmd.plugin.version>3.8</pmd.plugin.version>
 		<findbugs.plugin.version>3.0.5</findbugs.plugin.version>
-		<checkstyle.plugin.version>2.17</checkstyle.plugin.version>
+		<checkstyle.plugin.version>3.1.2</checkstyle.plugin.version>
 		<checkstyle.tools.version>8.29</checkstyle.tools.version>
 		<checkstyle.config.location>checkstyle.xml</checkstyle.config.location>
 		<checkstyle.console>true</checkstyle.console>
