@@ -21,12 +21,12 @@ package com.ebay.taskgraph.executor;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ebay.taskgraph.executor.workflow.WorkflowException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.ebay.taskgraph.context.ResponseContext;
 import com.ebay.taskgraph.diagnostic.DiagnosticConfig;
+import com.ebay.taskgraph.executor.workflow.WorkflowException;
 
 /**
  * Handles boiler plate methods of ICallableTask
