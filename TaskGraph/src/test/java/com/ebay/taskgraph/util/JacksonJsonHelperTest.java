@@ -21,7 +21,7 @@ package com.ebay.taskgraph.util;
 import java.io.InputStream;
 import java.util.List;
 
-import org.codehaus.jackson.type.TypeReference;
+import com.fasterxml.jackson.core.type.TypeReference;
 
 /**
  * Legacy jackson implementation of the JSON helper methods.
@@ -39,52 +39,52 @@ public class JacksonJsonHelperTest implements IJsonHelper {
 
     @Override
     public String writeAsString(Object o) {
-        return CodehausJsonUtil.writeAsString(o);
+        return JsonUtil.writeAsString(o);
     }
 
     @Override
     public <T> T readJsonString(String s, Class<T> clazz) {
-        return CodehausJsonUtil.readJsonString(s, clazz);
+        return JsonUtil.readJsonString(s, clazz);
     }
 
     @Override
     public String prettyPrint(Object o) {
-        return CodehausJsonUtil.prettyPrintObject(o);
+        return JsonUtil.prettyPrintObject(o);
     }
 
     @Override
     public String prettyPrint(String s) {
-        return CodehausJsonUtil.prettyPrint(s);
+        return JsonUtil.prettyPrint(s);
     }
 
     @Override
     public <T> T readJsonFile(String s, Class<?> clazz) {
-        return CodehausJsonUtil.readJsonFile(s, clazz);
+        return JsonUtil.readJsonFile(s, clazz);
     }
 
     @Override
     public <T> List<T> readJsonStringAsList(String s) {
-        return CodehausJsonUtil.readJsonString(s, new TypeReference<List<T>>() {});
+        return JsonUtil.readJsonString(s, new TypeReference<List<T>>() {});
     }
 
     @Override
     public <T> T convertValue(Object o, Class<T> clazz) {
-        return CodehausJsonUtil.getMapper().convertValue(o, clazz);
+        return JsonUtil.convertValue(o, clazz);
     }
 
     @Override
     public <T> T readTestResourceJsonFile(String filename, Class<T> clazz) {
-        return CodehausJsonUtil.readTestResourceJsonFile(filename, clazz);
+        return JsonUtil.readTestResourceJsonFile(filename, clazz);
     }
 
     @Override
     public <T> T readJsonFile(InputStream is, Class<T> clazz) {
-        return CodehausJsonUtil.readJsonFile(is, clazz);
+        return JsonUtil.readJsonFile(is, clazz);
     }
 
     @Override
     public String getTextFromClassPath(String path) {
-        return CodehausJsonUtil.getTextFromClassPath(path);
+        return JsonUtil.getTextFromClassPath(path);
     }
 
 }

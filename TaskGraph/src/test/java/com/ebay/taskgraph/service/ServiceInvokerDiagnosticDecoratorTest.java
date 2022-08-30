@@ -23,8 +23,8 @@ import java.util.List;
 import com.ebay.taskgraph.executor.CallableTaskConfig;
 import com.ebay.taskgraph.executor.ICallableTask;
 import com.ebay.taskgraph.executor.NumberTask;
-import junit.framework.Assert;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import com.ebay.taskgraph.diagnostic.DiagnosticConfig;

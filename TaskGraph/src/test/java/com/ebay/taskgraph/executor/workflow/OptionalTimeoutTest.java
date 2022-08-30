@@ -20,8 +20,8 @@ package com.ebay.taskgraph.executor.workflow;
 
 import com.ebay.taskgraph.executor.CallableTaskConfig;
 import com.ebay.taskgraph.executor.ICallableTaskFuture;
-import junit.framework.Assert;
 
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 

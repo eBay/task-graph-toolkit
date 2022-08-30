@@ -22,8 +22,8 @@ import com.ebay.taskgraph.executor.ApplicationException;
 import com.ebay.taskgraph.executor.workflow.IWorkflow;
 import com.ebay.taskgraph.executor.workflow.IWorkflowExecutor;
 import com.ebay.taskgraph.executor.workflow.IWorkflowFactory;
-import junit.framework.Assert;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import com.ebay.taskgraph.executor.workflow.SampleOrchestrationRequest;

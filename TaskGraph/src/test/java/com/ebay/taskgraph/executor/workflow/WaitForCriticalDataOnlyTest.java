@@ -19,9 +19,9 @@
 package com.ebay.taskgraph.executor.workflow;
 
 import com.ebay.taskgraph.executor.ApplicationException;
-import org.junit.Test;
 
-import junit.framework.Assert;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * Test to show how to wait only for a critical piece of data and

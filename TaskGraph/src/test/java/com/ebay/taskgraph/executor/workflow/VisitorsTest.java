@@ -25,11 +25,11 @@ import java.util.List;
 import com.ebay.taskgraph.executor.CallableTaskConfig;
 import com.ebay.taskgraph.executor.CallableTaskFutureValue;
 import com.ebay.taskgraph.executor.ICallableTaskFuture;
+
+import org.junit.Assert;
 import org.junit.Test;
 
 import com.ebay.taskgraph.diagnostic.DiagnosticConfig;
-
-import junit.framework.Assert;
 
 import com.ebay.taskgraph.executor.ProfilerHelper;
 

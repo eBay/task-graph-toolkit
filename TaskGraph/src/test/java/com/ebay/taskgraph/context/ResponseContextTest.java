@@ -20,6 +20,7 @@ package com.ebay.taskgraph.context;
 
 import java.util.*;
 
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -28,8 +29,6 @@ import com.ebay.taskgraph.diagnostic.DiagnosticConfig;
 import com.ebay.taskgraph.diagnostic.ProfilerModel;
 import com.ebay.taskgraph.util.JacksonJsonHelperTest;
 import com.ebay.taskgraph.util.JsonHelper;
-
-import junit.framework.Assert;
 
 import static org.junit.Assert.*;
 
