@@ -18,10 +18,6 @@
 
 package com.ebay.taskgraph.diagnostic;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -39,11 +35,6 @@ public class Profiler implements IProfiler, IProfilerEntry {
     public static final String PROFILER_DIAGNOSTIC_NAME = "Profiler";
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Profiler.class);
-
-    private static final long NANO_SECENDS_PER_CHAR = 10000000L;
-
-    // 10 seconds max
-    private static final long MAX_TIME = 10000000000L;
 
     static class Entry implements IProfilerEntry {
 
@@ -183,51 +174,6 @@ public class Profiler implements IProfiler, IProfilerEntry {
         return pm;
     }
 
-    public static String getTimingString(ProfilerModel pm) {
-        StringBuilder sb = new StringBuilder();
-        printTiming(pm, sb, "");
-        return sb.toString();
-    }
-
-    /**
-     * Print out relative timing of tasks.
-     * @param pm
-     */
-    private static void printTiming(ProfilerModel pm, StringBuilder sb, String context) {
-
-        int spaces = getSpaces(pm.getStartTime());
-        for (int i = 0; i < spaces; ++i) {
-            sb.append('-');
-        }
-        sb.append('|');
-        spaces = getSpaces(pm.getDuration());
-        for (int i = 0; i < spaces; ++i) {
-            sb.append('-');
-        }
-        sb.append('|');
-        String name = getEntryName(context, pm.getName());
-        sb.append(name);
-        sb.append(':');
-        if (pm.getStartTime() < 0) {
-            sb.append("not started");
-        } else {
-            sb.append(pm.getStartTime());
-        }
-        sb.append(':');
-        if (pm.getDuration() < 0) {
-            sb.append("not stopped");
-        } else {
-            sb.append(pm.getDuration());
-        }
-        sb.append('\n');
-
-        if (pm.getChildren() != null) {
-            for (ProfilerModel model : pm.getChildren()) {
-                printTiming(model, sb, name);
-            }
-        }
-    }
-
     public static String getEntryName(String context, String name) {
         if (context != null && context.length() > 0) {
             name = removeDuplicatePath(context, name);
@@ -264,21 +210,6 @@ public class Profiler implements IProfiler, IProfilerEntry {
             remainder = name.substring(finalIndex);
         }
         return remainder;
-    }
-
-    /**
-     * Get spaces for time.  Limit count in case the time is off due to profiler
-     * not being stopped or started properly.
-     * @param time
-     * @return
-     */
-    private static int getSpaces(long time) {
-
-        if (time < 0 || time > MAX_TIME) {
-            time = 0;
-        }
-        int spaces = (int) (time / NANO_SECENDS_PER_CHAR);
-        return spaces;
     }
 
     public static IProfiler getProfiler(String name, DiagnosticConfig diagnosticConfig) {
@@ -368,48 +299,6 @@ public class Profiler implements IProfiler, IProfilerEntry {
         List<Diagnostic> rval = new ArrayList<>(1);
         rval.add(this.getProfilerDiagnostic(this.entry.absoluteStartTime));
         return rval;
-    }
-
-    public static void main(String[] args) throws IOException {
-
-        if (null == args || 0 == args.length) {
-            throw new RuntimeException("Pass in string to be prettified");
-        }
-
-        // concatenate because of spaces
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < args.length; ++i) {
-            if (i > 0) {
-                sb.append(' ');
-            }
-            sb.append(args[i]);
-        }
-
-        String profiler = sb.toString().trim();
-
-        // if not json, try and load from file
-        if (!profiler.startsWith("{")) {
-            profiler = loadFromFile(profiler);
-            // need to remove escaped quotes
-            profiler = profiler.replace("\\\"", "\"");
-        }
-
-        ProfilerModel pm = JsonHelper.readJsonString(profiler, ProfilerModel.class);
-        System.out.println(JsonHelper.prettyPrint(pm));
-        System.out.println(getTimingString(pm));
-    }
-
-    private static String loadFromFile(String filename) throws IOException {
-
-        StringBuilder sb = new StringBuilder();
-        BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filename), "UTF-8"));
-        String line;
-        while ((line = br.readLine()) != null) {
-            line = line.trim();
-            sb.append(line);
-        }
-        br.close();
-        return sb.toString();
     }
 
     @Override

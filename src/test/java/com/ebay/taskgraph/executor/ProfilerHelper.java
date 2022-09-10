@@ -31,7 +31,7 @@ public class ProfilerHelper {
         if (diag != null && diag.size() > 0 && diag.get(0).getValue() != null && diag.get(0).getValue().size() > 0) {
             System.out.println(diag.get(0).getValue().get(0));
         }
-        ProfilerValidator.validate(rc.getProfiler().getModel(0L));
+        ProfilerValidator.validate(rc.getProfiler());
     }
 
 }
