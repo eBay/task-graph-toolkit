@@ -18,11 +18,10 @@
 
 package com.ebay.taskgraph.service;
 
-import java.util.List;
-
 import com.ebay.taskgraph.executor.CallableTaskConfig;
 import com.ebay.taskgraph.executor.ICallableTask;
 import com.ebay.taskgraph.executor.NumberTask;
+import com.ebay.taskgraph.util.JacksonJsonHelperTest;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -30,6 +29,10 @@ import org.junit.Test;
 import com.ebay.taskgraph.diagnostic.DiagnosticConfig;
 
 public class ServiceInvokerDiagnosticDecoratorTest {
+	
+	static {
+		JacksonJsonHelperTest.INSTANCE.getClass();
+	}
 
     @Test
     public void test() {
@@ -39,11 +42,10 @@ public class ServiceInvokerDiagnosticDecoratorTest {
         IServiceInvoker<Integer, Integer> decorator = new ServiceInvokerDiagnosticDecorator<>(invoker, task);
         long response = decorator.getResponse(5, null);
         Assert.assertEquals(5L, response);
-        Assert.assertEquals("Header Diagnostics", decorator.getRequestHeadersDiagnostic(null));
+        Assert.assertEquals("{}", decorator.getRequestHeadersDiagnostic(new Headers()));
         Assert.assertEquals("4", decorator.getRequestDiagnostic(4));
         Assert.assertEquals("6", decorator.getResponseDiagnostic(6));
-        List<String> diag = decorator.convertResponseDiagnostics(8);
-        Assert.assertEquals("8", diag.get(0));
+        Assert.assertNull(invoker.convertResponseDiagnostics(8));
     }
 
     @Test
