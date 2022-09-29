@@ -29,10 +29,10 @@ import org.junit.Test;
 import com.ebay.taskgraph.diagnostic.DiagnosticConfig;
 
 public class ServiceInvokerDiagnosticDecoratorTest {
-	
-	static {
-		JacksonJsonHelperTest.INSTANCE.getClass();
-	}
+    
+    static {
+        JacksonJsonHelperTest.INSTANCE.getClass();
+    }
 
     @Test
     public void test() {

@@ -23,19 +23,19 @@ import org.junit.Test;
 import com.ebay.taskgraph.diagnostic.Diagnostic;
 
 public class JsonUtilTest {
-	
-	static {
-		JacksonJsonHelperTest.INSTANCE.getClass();
-	}
+    
+    static {
+        JacksonJsonHelperTest.INSTANCE.getClass();
+    }
 
     @Test
     public void test() {
-    	JsonHelper.readJsonString("{}", Object.class);
-    	JsonHelper.prettyPrint(new Diagnostic());
-    	JsonHelper.prettyPrint("{}");
-    	JsonHelper.readJsonFile("./src/test/resources/sample_profiler.json", Object.class);
-    	JsonHelper.readTestResourceJsonFile("sample_profiler.json", Object.class);
-    	JsonHelper.getTextFromClassPath("/sample_profiler.json");
+        JsonHelper.readJsonString("{}", Object.class);
+        JsonHelper.prettyPrint(new Diagnostic());
+        JsonHelper.prettyPrint("{}");
+        JsonHelper.readJsonFile("./src/test/resources/sample_profiler.json", Object.class);
+        JsonHelper.readTestResourceJsonFile("sample_profiler.json", Object.class);
+        JsonHelper.getTextFromClassPath("/sample_profiler.json");
     }
-	
+    
 }
