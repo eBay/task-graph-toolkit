@@ -18,15 +18,12 @@
 
 package com.ebay.taskgraph.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response.Status;
 
 import com.ebay.taskgraph.executor.ApplicationException;
 
-public class ServiceInvokerTest implements IServiceInvoker<Integer, Integer> {
+public class ServiceInvokerTest extends ServiceInvoker<Integer, Integer> implements IServiceInvoker<Integer, Integer> {
 
     private final int value;
 
@@ -44,28 +41,6 @@ public class ServiceInvokerTest implements IServiceInvoker<Integer, Integer> {
             throw new ApplicationException(Status.BAD_REQUEST, null);
         }
         return this.value;
-    }
-
-    @Override
-    public String getRequestHeadersDiagnostic(HttpHeaders headers) {
-        return "Header Diagnostics";
-    }
-
-    @Override
-    public String getRequestDiagnostic(Integer request) {
-        return request.toString();
-    }
-
-    @Override
-    public String getResponseDiagnostic(Integer response) {
-        return response.toString();
-    }
-
-    @Override
-    public List<String> convertResponseDiagnostics(Integer response) {
-        List<String> rval = new ArrayList<>();
-        rval.add(response.toString());
-        return rval;
     }
 
 }

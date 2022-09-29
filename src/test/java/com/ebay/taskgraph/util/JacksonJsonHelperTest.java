@@ -21,11 +21,10 @@ package com.ebay.taskgraph.util;
 import java.io.InputStream;
 import java.util.List;
 
+import org.junit.Test;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 
-/**
- * Legacy jackson implementation of the JSON helper methods.
- */
 public class JacksonJsonHelperTest implements IJsonHelper {
   
     public static final IJsonHelper INSTANCE = new JacksonJsonHelperTest();
@@ -86,5 +85,4 @@ public class JacksonJsonHelperTest implements IJsonHelper {
     public String getTextFromClassPath(String path) {
         return JsonUtil.getTextFromClassPath(path);
     }
-
 }

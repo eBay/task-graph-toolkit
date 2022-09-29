@@ -29,6 +29,11 @@ import com.ebay.taskgraph.executor.Task;
  */
 public class ProfilerValidator {
 
+    public static void validate(IProfiler profiler) {
+        profiler.log();
+        ProfilerValidator.validate(profiler.getModel(0L));
+    }
+
     public static void validate(ProfilerModel profiler) {
         // verify we can find all the dependencies
         Map<String, Boolean> entries = new HashMap<>();

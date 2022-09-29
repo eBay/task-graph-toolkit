@@ -16,22 +16,26 @@
  *
  */
 
-package com.ebay.taskgraph.executor;
+package com.ebay.taskgraph.util;
 
-import java.util.List;
+import org.junit.Test;
 
-import com.ebay.taskgraph.context.ResponseContext;
 import com.ebay.taskgraph.diagnostic.Diagnostic;
-import com.ebay.taskgraph.diagnostic.ProfilerValidator;
 
-public class ProfilerHelper {
+public class JsonUtilTest {
     
-    public static void print(ResponseContext rc) {
-        List<Diagnostic> diag = rc.getProfiler().getDiagnostics();
-        if (diag != null && diag.size() > 0 && diag.get(0).getValue() != null && diag.get(0).getValue().size() > 0) {
-            System.out.println(diag.get(0).getValue().get(0));
-        }
-        ProfilerValidator.validate(rc.getProfiler().getModel(0L));
+    static {
+        JacksonJsonHelperTest.INSTANCE.getClass();
     }
 
+    @Test
+    public void test() {
+        JsonHelper.readJsonString("{}", Object.class);
+        JsonHelper.prettyPrint(new Diagnostic());
+        JsonHelper.prettyPrint("{}");
+        JsonHelper.readJsonFile("./src/test/resources/sample_profiler.json", Object.class);
+        JsonHelper.readTestResourceJsonFile("sample_profiler.json", Object.class);
+        JsonHelper.getTextFromClassPath("/sample_profiler.json");
+    }
+    
 }
