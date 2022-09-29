@@ -177,7 +177,6 @@
 				</executions>
 			</plugin>
 
-
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
@@ -234,6 +233,23 @@
 				</executions>
 			</plugin>
 
+			<!-- sign the jars -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<version>1.5</version>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>deploy</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- end sign -->
+
 			<!-- Begin publish to maven central -->
 			<plugin>
 				<groupId>org.sonatype.plugins</groupId>
@@ -281,23 +297,6 @@
 			</plugin>
 			 -->
 			<!-- end source & javadoc -->
-
-			<!-- sign the jars -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-gpg-plugin</artifactId>
-				<version>1.5</version>
-				<executions>
-					<execution>
-						<id>sign-artifacts</id>
-						<phase>install</phase>
-						<goals>
-							<goal>sign</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<!-- end sign -->
 
 		</plugins>
 	</build>
