@@ -21,9 +21,11 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.ebay.taskgraph</groupId>
     <artifactId>TaskGraph</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
     <name>Task Graph Toolkit</name>
+    <description>An extension of basic Java concurrency patterns to build a set of interdependent tasks.</description>
+    <url>https://github.com/eBay/task-graph-toolkit.git</url>
     <scm>
         <connection>https://github.com/eBay/task-graph-toolkit.git</connection>
         <developerConnection>https://github.com/eBay/task-graph-toolkit.git</developerConnection>
