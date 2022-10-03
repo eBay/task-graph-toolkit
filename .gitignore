@@ -25,6 +25,7 @@ hs_err_pid*
 .settings
 .project
 .classpath
+.checkstyle
 .idea
 *.iml
 
