@@ -46,7 +46,7 @@ public abstract class Task {
     public static final String PARENT_TASK = "parent_task";
     public static final String TASK_THREAD = "task_thread";
 
-    static Logger LOGGER = LoggerFactory.getLogger(Task.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(Task.class);
   
     private static final String EXCEPTION_META_DATA_KEY = "exception";
 
@@ -165,7 +165,7 @@ public abstract class Task {
         // need the logback configuration for this package to be debug
         // src/main/webapp/META-INF/configuration/Dev/config/com/ebay/aero/kernal/logging/logback/logback.xml
         // 
-        //<logger name="com.ebay.ap.executor" level="DEBUG" additivity="false">
+        //<logger name="com.ebay.taskgraph.executor" level="DEBUG" additivity="false">
         //  <appender-ref ref="STDOUT" />
         //</logger>
         LOGGER.debug(task.getContext().getName(), t);

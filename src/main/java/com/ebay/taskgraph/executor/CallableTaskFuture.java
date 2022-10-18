@@ -27,7 +27,7 @@ import java.util.concurrent.TimeoutException;
  * Future wrapper that logs exceptions to appropriate task.  Allows exceptions thrown
  * by tasks to be reported independently in CAL.
  */
-class CallableTaskFuture<RESULT> implements ICallableTaskFuture<RESULT> {
+public class CallableTaskFuture<RESULT> implements ICallableTaskFuture<RESULT> {
 
     public static final TimeUnit TIMEOUT_UNIT = TimeUnit.MILLISECONDS;
 
