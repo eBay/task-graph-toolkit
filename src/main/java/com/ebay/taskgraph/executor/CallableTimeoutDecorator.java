@@ -37,7 +37,7 @@ public class CallableTimeoutDecorator<T> implements ICallableTask<T> {
         this.task = task;
 
         // make this a simple task so the parent future doesn't timeout
-        // this prevents dual CAL logging in the case of a timeout
+        // this prevents dual error logging in the case of a timeout
         this.taskConfig = CallableTaskConfig.simple(task.getTaskConfig().diagnosticConfig);
 
         // add the timeout task

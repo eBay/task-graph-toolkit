@@ -24,10 +24,12 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 /**
- * Future wrapper that logs exceptions to appropriate task.  Allows exceptions thrown
- * by tasks to be reported independently in CAL.
+ * Future wrapper that ensures synchronous tasks are executed once only.
+ * Logs exceptions to corresponding task ResponseContext.
+ * Handles recording of task response to ResponseContext when required.
+ * Handles mocking out the task response if configured in the task's DiagnosticConfig.
  */
-class CallableTaskFuture<RESULT> implements ICallableTaskFuture<RESULT> {
+public class CallableTaskFuture<RESULT> implements ICallableTaskFuture<RESULT> {
 
     public static final TimeUnit TIMEOUT_UNIT = TimeUnit.MILLISECONDS;
 

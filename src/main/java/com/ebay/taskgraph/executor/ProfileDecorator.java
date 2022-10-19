@@ -22,7 +22,8 @@ import com.ebay.taskgraph.context.ResponseContext;
 import com.ebay.taskgraph.diagnostic.IProfilerEntry;
 
 /**
- * Decorator of ExecType.SIMPLE task for profiling only, no CAL transaction.
+ * Decorator that blocks and records time spent blocking for the task's dependencies.
+ * Then records the time spent executing the task's call() method.
  */
 public class ProfileDecorator<T> implements ICallableTask<T> {
 

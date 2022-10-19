@@ -46,7 +46,7 @@ public abstract class Task {
     public static final String PARENT_TASK = "parent_task";
     public static final String TASK_THREAD = "task_thread";
 
-    static Logger LOGGER = LoggerFactory.getLogger(Task.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(Task.class);
   
     private static final String EXCEPTION_META_DATA_KEY = "exception";
 
@@ -132,7 +132,7 @@ public abstract class Task {
      * Create and log an event for an exception within a task.  Can't do this in a
      * generic way with the kernel logger because the type of exception is always associated
      * with the class that does the logging.  In order to easily see the exceptions
-     * grouped by task name in CAL, we need to log an event with the task name as the type.
+     * grouped by task name in the logging system, we need to log an event with the task name as the type.
      *  
      * @param task
      * @param t
@@ -151,7 +151,7 @@ public abstract class Task {
         addProfileException(task, t);
 
         // don't log application exceptions
-        // will be logged by top level application handler and/or Raptor exception handler
+        // will be logged by top level application handler and/or the runtime framework exception handler
         if (t instanceof ApplicationException) {
             // propagate application exceptions to top level application handler
             throw (ApplicationException) t;
@@ -159,13 +159,12 @@ public abstract class Task {
 
         task.getContext().getDiagnostic().addThrowableDiagnostic(task.getContext().getName(), t);
 
-        // log debug message so we get stack trace in console
-        // don't log as error because we'll get duplicate exceptions in CAL
+        // log debug message so we get stack trace in console when running during development
+        // don't log as error because we may get duplicate exceptions in production from platform specific error logging decorator
         //
         // need the logback configuration for this package to be debug
-        // src/main/webapp/META-INF/configuration/Dev/config/com/ebay/aero/kernal/logging/logback/logback.xml
         // 
-        //<logger name="com.ebay.ap.executor" level="DEBUG" additivity="false">
+        //<logger name="com.ebay.taskgraph.executor" level="DEBUG" additivity="false">
         //  <appender-ref ref="STDOUT" />
         //</logger>
         LOGGER.debug(task.getContext().getName(), t);
@@ -182,7 +181,7 @@ public abstract class Task {
     public void waitForDependencies() {
 
         // Block for all the task's dependencies before delegating to the task for execution.
-        // Allows the CAL transaction and profiler to report time spent purely in task execution. 
+        // Allows the profiler to report time spent purely in task execution. 
 
         List<ICallableTaskFuture<?>> asyncDependencies = new ArrayList<>();
 
