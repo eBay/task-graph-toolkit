@@ -37,7 +37,7 @@ import com.ebay.taskgraph.executor.Task;
 public class ServiceInvokerDiagnosticDecorator<T, S> implements IServiceInvoker<T, S> {
 
     /**
-     * Client com.ebay.raptor.searchsvc.universal.app.invoker is either the actual remote service client or the service mock implementation.
+     * Client invoker is either the actual remote service client or the service mock implementation.
      */
     private final IServiceInvoker<T, S> client;
 

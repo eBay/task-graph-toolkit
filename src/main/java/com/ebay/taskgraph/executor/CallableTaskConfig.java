@@ -29,7 +29,7 @@ public class CallableTaskConfig {
         SYNC,           // synchronous task that runs in the thread of caller of getNoThrow() on the task future
         ASYNC,          // task submitted to the executor service
         ASYNC_TIMEOUT,  // task submitted to the executor service with an additional task to timeout the execution
-        SIMPLE,         // simple synchronous task that doesn't require CAL logging
+        SIMPLE,         // simple synchronous task that doesn't require platform specific logging decorator
     }
 
     public final DiagnosticConfig diagnosticConfig;

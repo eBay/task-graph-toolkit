@@ -52,8 +52,8 @@ public class Profiler implements IProfiler, IProfilerEntry {
         private final String name;
         
         /**
-         * Keep track of data outside of CAL transaction
-         * so it can be initialized before profiler is started.
+         * Additional task specific data associated with the profiler entry.
+         * e.g. task type, dependencies any uncaught exception thrown during task processing.  
          */
         private Map<String, String> data = new LinkedHashMap<>();
 
@@ -222,7 +222,7 @@ public class Profiler implements IProfiler, IProfilerEntry {
     @Override
     public IProfilerEntry newEntry(String entryName) {
         // prefix every entry name with the parent profiler name
-        // this helps distinguish the CAL transactions for each of the individual entries
+        // this helps to ensure there are no duplicate entries by giving a fully qualified path to each entry
         IProfilerEntry entry = new Entry(this.entry.name + '.' + entryName);
         entry.start();
         this.entries.add(entry);
