@@ -58,7 +58,6 @@ public abstract class Task {
     private final CallableTaskConfig config;
 
     protected Task(CallableTaskConfig config, ICallableTaskFuture<?> ... dependencies) {
-
         this.config = config;
         this.taskName = this.getClass().getSimpleName();
         this.context = createResponseContext(config, this.taskName);
@@ -66,29 +65,30 @@ public abstract class Task {
         setExecutionType();
     }
 
+    protected Task(String taskName, DiagnosticConfig diagnosticConfig, ICallableTaskFuture<?> ... dependencies) {
+        this(taskName, new CallableTaskConfig(diagnosticConfig, CallableTaskConfig.ExecType.SYNC), dependencies);
+    }
+
     protected Task(String taskName, CallableTaskConfig config, ICallableTaskFuture<?> ... dependencies) {
-        this(createResponseContext(config, taskName), config, dependencies);
+        this.config = config;
+        this.taskName = taskName;
+        // default response context to the task class instead of the task name
+        // this means aggregate logging of task response times will be associated with the type of task rather than individual instances
+        this.context = createResponseContext(config, this.getClass().getSimpleName());
+        this.dependencies = dependencies;
+        setExecutionType();
     }
 
     protected Task(ResponseContext rc, CallableTaskConfig config, ICallableTaskFuture<?> ... dependencies) {
         this(rc.getName(), rc, config, dependencies);
     }
 
-    protected Task(String taskName, DiagnosticConfig diagnosticConfig, ICallableTaskFuture<?> ... dependencies) {
-        this(taskName, new CallableTaskConfig(diagnosticConfig, CallableTaskConfig.ExecType.SYNC), dependencies);
-    }
-
-    protected Task(String name, ResponseContext rc, CallableTaskConfig config, ICallableTaskFuture<?> ... dependencies) {
+    protected Task(String taskName, ResponseContext rc, CallableTaskConfig config, ICallableTaskFuture<?> ... dependencies) {
         this.config = config;
-        this.taskName = name;
+        this.taskName = taskName;
         this.context = rc;
         this.dependencies = dependencies;
         setExecutionType();
-        // in case task name is different than response context name
-        // save the task name in profiler data
-        if (!rc.getName().equals(name)) {
-            rc.getProfiler().addData(TASK_NAME, name);
-        }
     }
 
     private static ResponseContext createResponseContext(
@@ -109,6 +109,11 @@ public abstract class Task {
                     throw new WorkflowException("Null dependency in task: " + this.taskName);
                 }
             }
+        }
+        // in case task name is different than response context name
+        // save the task name in profiler data
+        if (!this.context.getName().equals(this.taskName)) {
+            this.context.getProfiler().addData(TASK_NAME, this.taskName);
         }
     }
 

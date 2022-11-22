@@ -21,8 +21,6 @@ package com.ebay.taskgraph.util;
 import java.io.InputStream;
 import java.util.List;
 
-import org.junit.Test;
-
 import com.fasterxml.jackson.core.type.TypeReference;
 
 public class JacksonJsonHelperTest implements IJsonHelper {

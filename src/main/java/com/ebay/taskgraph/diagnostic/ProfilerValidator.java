@@ -45,7 +45,7 @@ public class ProfilerValidator {
         String taskName = getTaskName(profiler);
         if (taskName != null) {
             if (entries.containsKey(taskName)) {
-                throw new RuntimeException("Duplicate task name: " + profiler.getName());
+                throw new RuntimeException("Duplicate task name: " + taskName);
             }
             entries.put(taskName, Boolean.TRUE);
         }
