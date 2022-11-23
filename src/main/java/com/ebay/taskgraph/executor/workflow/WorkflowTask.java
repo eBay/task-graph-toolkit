@@ -21,6 +21,7 @@ package com.ebay.taskgraph.executor.workflow;
 import com.ebay.taskgraph.context.ResponseContext;
 import com.ebay.taskgraph.executor.CallableTaskConfig;
 import com.ebay.taskgraph.executor.ICallableTask;
+import com.ebay.taskgraph.executor.ICallableTaskFuture;
 import com.ebay.taskgraph.executor.Task;
 
 /**
@@ -31,20 +32,21 @@ public class WorkflowTask<T> extends Task implements ICallableTask<T> {
     private final IWorkflowFactory workflowFactory;
     private final IWorkflowExecutor<T> executor;
 
-    public WorkflowTask(CallableTaskConfig config, IWorkflowFactory workflowFactory, IWorkflowExecutor<T> task) {
-        this(task.getClass().getSimpleName(), config, workflowFactory, task);
+    public WorkflowTask(
+          CallableTaskConfig config,
+          IWorkflowFactory workflowFactory,
+          IWorkflowExecutor<T> executor,
+          ICallableTaskFuture<?> ... dependencies) {
+        this(executor.getClass().getSimpleName(), config, workflowFactory, executor, dependencies);
     }
 
-    public WorkflowTask(CallableTaskConfig config, ResponseContext rc, IWorkflowFactory workflowFactory, IWorkflowExecutor<T> executor) {
-        this(rc, config, workflowFactory, executor);
-    }
-
-    public WorkflowTask(String taskName, CallableTaskConfig config, IWorkflowFactory workflowFactory, IWorkflowExecutor<T> executor) {
-        this(new ResponseContext(config.diagnosticConfig, taskName), config, workflowFactory, executor);
-    }
-
-    public WorkflowTask(ResponseContext rc, CallableTaskConfig config, IWorkflowFactory workflowFactory, IWorkflowExecutor<T> executor) {
-        super(rc, config);
+    public WorkflowTask(
+          String taskName,
+          CallableTaskConfig config,
+          IWorkflowFactory workflowFactory,
+          IWorkflowExecutor<T> executor,
+          ICallableTaskFuture<?> ... dependencies) {
+        super(taskName, new ResponseContext(config.diagnosticConfig, executor.getClass().getSimpleName()), config, dependencies);
         this.workflowFactory = workflowFactory;
         this.executor = executor;
     }
